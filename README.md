@@ -1,98 +1,225 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Simple Q&A Forum API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A RESTful API for a Simple Q&A Forum application built with NestJS, Prisma ORM, and PostgreSQL. This API allows users to register, login, and manage discussion threads with proper authentication and authorization.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## Tech Stack
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **Framework:** NestJS (Node.js)
+- **Database:** PostgreSQL
+- **ORM:** Prisma
+- **Authentication:** JWT (JSON Web Token)
+- **Password Hashing:** bcrypt
+- **API Documentation:** Swagger (OpenAPI)
 
-## Project setup
+---
 
-```bash
-$ npm install
-```
+## Prerequisites
 
-## Compile and run the project
+Make sure you have the following installed:
+
+- [Node.js](https://nodejs.org/) v18+
+- [PostgreSQL](https://www.postgresql.org/)
+- [npm](https://www.npmjs.com/)
+
+---
+
+## Getting Started
+
+### 1. Clone the Repository
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+git clone https://github.com/YOUR_USERNAME/qa-forum-api.git
+cd qa-forum-api
 ```
 
-## Run tests
+### 2. Install Dependencies
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm install
 ```
 
-## Deployment
+### 3. Configure Environment Variables
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Create a `.env` file in the root directory:
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+```env
+PORT=3000
+DATABASE_URL="postgresql://postgres:YOUR_PASSWORD@localhost:5432/qa_forum_db?schema=public"
+JWT_SECRET="your-super-secret-jwt-key"
+JWT_EXPIRES_IN="604800"
+```
+
+> `JWT_EXPIRES_IN` is in seconds. `604800` = 7 days.
+
+### 4. Create the Database
+
+Create a database named `qa_forum_db` in PostgreSQL (via pgAdmin or psql):
+
+```sql
+CREATE DATABASE qa_forum_db;
+```
+
+### 5. Run Database Migration
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npx prisma migrate dev --name init
+npx prisma generate
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### 6. Seed Dummy Data (Optional)
 
-## Resources
+```bash
+npm run prisma:seed
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+### 7. Start the Server
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```bash
+npm run start:dev
+```
 
-## Support
+Server will run at: `http://localhost:3000/api`
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+---
 
-## Stay in touch
+## API Documentation
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Swagger UI is available at:
 
-## License
+```
+http://localhost:3000/api/docs
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+---
+
+## API Endpoints
+
+### Auth
+
+| Method | Endpoint | Description | Auth Required |
+|---|---|---|---|
+| POST | /api/auth/register | Register a new user | ❌ |
+| POST | /api/auth/login | Login and get JWT token | ❌ |
+
+### Users
+
+| Method | Endpoint | Description | Auth Required |
+|---|---|---|---|
+| GET | /api/users/:id | Get a user's public profile | ❌ |
+
+### Threads
+
+| Method | Endpoint | Description | Auth Required |
+|---|---|---|---|
+| POST | /api/threads | Create a new thread | ✅ |
+| GET | /api/threads | Get all threads | ❌ |
+| GET | /api/threads/my-threads | Get current user's threads | ✅ |
+| GET | /api/threads/:id | Get a specific thread | ❌ |
+| PUT | /api/threads/:id | Update a thread (owner only) | ✅ |
+| DELETE | /api/threads/:id | Delete a thread (owner only) | ✅ |
+
+---
+
+## Authentication
+
+This API uses **JWT Bearer Token** authentication.
+
+1. Register or login to get an `accessToken`
+2. Include the token in the `Authorization` header for protected endpoints:
+
+```
+Authorization: Bearer <your_token_here>
+```
+
+In Swagger UI, click the **Authorize** button and paste your token (without the word "Bearer").
+
+---
+
+## Database Schema
+
+```
+users
+─────────────────────────
+id           String (UUID, PK)
+username     String (unique)
+email        String (unique)
+passwordHash String
+createdAt    DateTime
+
+threads
+─────────────────────────
+id        String (UUID, PK)
+title     String
+content   String
+userId    String (FK → users.id)
+createdAt DateTime
+updatedAt DateTime
+```
+
+**Relation:** One user can have many threads (one-to-many)
+
+---
+
+## Error Handling
+
+All errors return a consistent JSON format:
+
+```json
+{
+  "statusCode": 403,
+  "timestamp": "2026-04-28T06:00:00.000Z",
+  "path": "/api/threads/some-id",
+  "message": "You are not allowed to delete this thread"
+}
+```
+
+| Status Code | Meaning |
+|---|---|
+| 400 | Bad Request — validation error or invalid input |
+| 401 | Unauthorized — missing or invalid token |
+| 403 | Forbidden — not the owner of the resource |
+| 404 | Not Found — resource does not exist |
+| 409 | Conflict — email or username already exists |
+| 500 | Internal Server Error |
+
+---
+
+## Project Structure
+
+```
+src/
+├── auth/
+│   ├── dto/
+│   │   └── auth.dto.ts          # RegisterDto, LoginDto
+│   ├── auth.controller.ts       # Auth endpoints
+│   ├── auth.module.ts
+│   ├── auth.service.ts          # Register & login logic
+│   └── jwt.strategy.ts          # JWT validation strategy
+├── users/
+│   ├── users.controller.ts      # User endpoints
+│   ├── users.module.ts
+│   └── users.service.ts         # User profile logic
+├── threads/
+│   ├── dto/
+│   │   └── thread.dto.ts        # CreateThreadDto, UpdateThreadDto
+│   ├── threads.controller.ts    # Thread endpoints
+│   ├── threads.module.ts
+│   └── threads.service.ts       # Thread CRUD logic + ownership check
+├── prisma/
+│   ├── prisma.module.ts
+│   └── prisma.service.ts        # Database connection
+├── common/
+│   ├── decorators/
+│   │   └── current-user.decorator.ts  # @CurrentUser() decorator
+│   ├── filters/
+│   │   └── all-exceptions.filter.ts   # Global error handler
+│   └── guards/
+│       └── jwt-auth.guard.ts          # JWT auth guard
+├── app.module.ts                # Root module
+└── main.ts                      # Entry point + Swagger setup
+prisma/
+├── schema.prisma                # Database schema
+└── seed.ts                      # Dummy data seeder
+```

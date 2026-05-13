@@ -83,6 +83,17 @@ npm run start:dev
 Server will run at: `http://localhost:3000/api`
 
 ---
+![alt text](image-1.png)
+
+![alt text](image.png)
+
+![alt text](image-2.png)
+
+![alt text](image-3.png)
+
+![alt text](image-4.png)
+
+---
 
 ## API Documentation
 

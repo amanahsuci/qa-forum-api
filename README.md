@@ -19,7 +19,7 @@ A RESTful API for a Simple Q&A Forum application built with NestJS, Prisma ORM, 
 
 Make sure you have the following installed:
 
-- [Node.js](https://nodejs.org/) v18+
+- [NestJS CLI](https://nestjs.com/) v10+
 - [PostgreSQL](https://www.postgresql.org/)
 - [npm](https://www.npmjs.com/)
 
